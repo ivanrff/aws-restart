@@ -17,3 +17,15 @@
 Check `wordCounter.py` in this repository for the Python code.
 
 5. Add a trigger on the Lambda Function to invoke it when a new file is uploaded to the specified S3 bucket.
+
+## Workflow
+
+![](flux.png)
+
+1. A file is uploaded to the S3 bucket, which has EventBridge ON to log actions.
+2. The upload triggers AWS Lambda.
+3. AWS Lambda runs the underlying code.
+    - The code accesses S3 to get the file data, and receives it as a response.
+    - You can use CloudWatch logs for code debugging.
+4. The code accesses AWS SNS to activate the Topic.
+5. The topic sends the e-mail.
